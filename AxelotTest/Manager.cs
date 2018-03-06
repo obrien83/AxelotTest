@@ -23,7 +23,7 @@ namespace AxelotTest
         internal static long TotalAmount
         {
             get => _totalAmmount;
-            set => _totalAmmount = (value / 1000);
+            set => _totalAmmount = (value / 1024);
         }
 
         public Manager(Options options)
