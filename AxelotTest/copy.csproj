@@ -7,7 +7,7 @@
     <ProjectGuid>{D87EF342-0003-416C-A3FD-5661C458022C}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>AxelotTest</RootNamespace>
-    <AssemblyName>AxelotTest</AssemblyName>
+    <AssemblyName>copy</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -54,12 +54,11 @@
   <ItemGroup>
     <Compile Include="FileCopier.cs" />
     <Compile Include="ICopier.cs" />
-    <Compile Include="Copier.cs" />
+    <Compile Include="CopyManager.cs" />
     <Compile Include="DirectoryRecursiveCopier.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Manager.cs" />
     <Compile Include="Options.cs" />
-    <Compile Include="Rick.cs" />
     <Compile Include="DirectoryReader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,14 +1,10 @@
-﻿#define DEBUG
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reflection;
+﻿using System;
 
 namespace AxelotTest
 {
+    /// <summary>
+    /// Точка входа в приложение.
+    /// </summary>
     public class Program
     {
         static void Main(string[] args)
@@ -16,18 +12,7 @@ namespace AxelotTest
             var options = new Options();
             if (CommandLine.Parser.Default.ParseArguments(args, options))
             {
-#if DEBUG
-                Console.WriteLine(options.Interval);
-                Console.WriteLine(options.ThreadAmmount);
-                Console.WriteLine(options.IsRecursive);
-                Console.WriteLine(options.IsDeleteMode);
-                Console.WriteLine(options.IsPrintMode);
-#endif
-                new Manager(options).Run();
-            }
-            if (options.IsRickRolled)
-            {
-                new Rick().Roll();
+                new Manager(options).Manage();
             }
         }
     }

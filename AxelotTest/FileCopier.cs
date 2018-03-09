@@ -1,44 +1,74 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace AxelotTest
 {
-    internal class FileCopier : ICopier
+    /// <summary>
+    /// Файловый копировальщик. Синглтон.
+    /// </summary>
+    public class FileCopier : ICopier
     {
+        /// <summary>
+        /// Экземпляр
+        /// </summary>
         private static FileCopier _instance;
 
+        /// <summary>
+        /// Объект-локер
+        /// </summary>
+        private static readonly object _locker = new object();
+
+        /// <summary>
+        /// Приватный конструктор.
+        /// </summary>
         private FileCopier()
         {
 
         }
 
+        /// <summary>
+        /// Возвращает экземпляр копировальщика.
+        /// </summary>
+        /// <returns>экземпляр копировальщика</returns>
         public static FileCopier GetCopier()
         {
             if (_instance == null)
             {
-                return new FileCopier();
+                lock (_locker)
+                {
+                    _instance = new FileCopier();
+                }
             }
-
             return _instance;
         }
 
-        public void Copy(string src, string dest)
+        /// <summary>
+        /// Копирование.
+        /// </summary>
+        /// <param name="src">исходный каталог</param>
+        /// <param name="dest">каталог назначения</param>
+        /// <param name="isDeleteMode">удалять ли исходные файлы</param>
+        public void Copy(string src, string dest, bool isDeleteMode)
         {
             try
             {
-                Console.WriteLine("Copiing: " + Path.GetFileName(src));
-                Console.WriteLine(Thread.CurrentThread.Name + "copiing");
                 File.Copy(src, dest, true);
-                Manager.TotalAmount += new FileInfo(src).Length;
+                Manager.TotalAmmount += new FileInfo(src).Length;
+                if (isDeleteMode)
+                {
+                    try
+                    {
+                        File.Delete(src);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Не удалось удалить файл {0}: ", src + e.Message);
+                    }
+                }
             }
             catch (Exception e)
             {
-                Console.WriteLine("Errorr copiing file: " + e.Message);
+                Console.WriteLine("Ошибка копирования файла {0}: ", src + e.Message);
             }
         }
     }
